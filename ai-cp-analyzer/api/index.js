@@ -2,21 +2,20 @@
 // AI-Powered Competitive Programming Analyzer — Backend (Groq Edition)
 // Express app, exported directly for Vercel's @vercel/node runtime.
 // =====================================================================
+import dotenv from 'dotenv';
+dotenv.config();
 
-require('dotenv').config();
-
-const express = require('express');
-const cors = require('cors');
-const { Pool } = require('pg');
-const Groq = require('groq-sdk'); // استدعاء مكتبة Groq الجديدة
+import express from 'express';
+import cors from 'cors';
+import pg from 'pg';
+const { Pool } = pg;
+import Groq from 'groq-sdk';
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-// تعريف عميل Groq باستخدام المفتاح من ملف .env
-// تعريف عميل Groq بشكل آمن لتجنب الـ Crash عند بدء تشغيل السيرفر
-const groq = new Groq({ apiKey: process.env.GROQ_API_KEY || 'TEMPORARY_DUMMY_KEY' });
+const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
 // ---------------------------------------------------------------------
 // Postgres (Neon) connection pool
