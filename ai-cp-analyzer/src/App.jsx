@@ -87,13 +87,25 @@ export default function App() {
       });
       setResult(data.analysis);
       setWarnings(data.warnings);
-    } catch (err) {
-      const msg =
-        err.response?.data?.error ||
-        err.message ||
-        'Something went wrong while running the analysis.';
+    } } catch (err) {
+      let msg = 'Something went wrong while running the analysis.';
+      
+      // تفكيك رسالة الخطأ لتجنب الـ Object Crash
+      if (err.response?.data?.error) {
+        const backendError = err.response.data.error;
+        if (typeof backendError === 'object') {
+          // لو الخطأ جاي من Vercel على شكل Object
+          msg = backendError.message || JSON.stringify(backendError);
+        } else {
+          // لو الخطأ نص عادي من الباك إند بتاعنا
+          msg = backendError;
+        }
+      } else if (err.message) {
+        msg = err.message;
+      }
+      
       setError(msg);
-    } finally {
+    } finally { finally {
       setLoading(false);
     }
   };
