@@ -6,8 +6,9 @@ export default defineConfig({
   plugins: [react()],
   server: {
     port: 5173,
+    // الـ proxy سيظل يعمل محلياً لو احتجت تختبر بورت 3001، 
+    // ولكن على Vercel سيتم تجاهله واستخدام المسار النسبي تلقائياً
     proxy: {
-      // In local dev, forward /api calls to the Express backend running on :3001
       '/api': {
         target: 'http://localhost:3001',
         changeOrigin: true,
