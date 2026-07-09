@@ -15,7 +15,8 @@ app.use(cors());
 app.use(express.json());
 
 // تعريف عميل Groq باستخدام المفتاح من ملف .env
-const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
+// تعريف عميل Groq بشكل آمن لتجنب الـ Crash عند بدء تشغيل السيرفر
+const groq = new Groq({ apiKey: process.env.GROQ_API_KEY || 'TEMPORARY_DUMMY_KEY' });
 
 // ---------------------------------------------------------------------
 // Postgres (Neon) connection pool
