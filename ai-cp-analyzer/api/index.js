@@ -8,14 +8,17 @@ dotenv.config();
 import express from 'express';
 import cors from 'cors';
 import pg from 'pg';
-const { Pool } = pg;
 import Groq from 'groq-sdk';
+import { fileURLToPath } from 'url';
+
+const { Pool } = pg;
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
+// تأمين تشغيل المكتبة في بيئة Serverless لو لم يجد المفتاح فوراً
+const groq = new Groq({ apiKey: process.env.GROQ_API_KEY || 'DUMMY_KEY_FOR_VERCEL_BOOT' });
 
 // ---------------------------------------------------------------------
 // Postgres (Neon) connection pool
@@ -209,7 +212,6 @@ async function callGroqAI(userDataPayload) {
 
   const model = process.env.GROQ_MODEL || 'llama3-8b-8192';
 
-  // استدعاء Groq API بنفس أسلوب شات جي بي تي المتوافق مع المعايير الحديثة
   const response = await groq.chat.completions.create({
     messages: [
       {
@@ -227,7 +229,6 @@ async function callGroqAI(userDataPayload) {
     ],
     model: model,
     temperature: 0.4,
-    // هذه الخاصية تجبر الموديل على إرجاع JSON سليم 100% بدون أي كلام جانبي
     response_format: { type: 'json_object' }, 
   });
 
@@ -316,10 +317,9 @@ app.get('/api/health', (_req, res) => {
 
 app.post('/api/analyze', async (req, res) => {
   try {
-    // بدل الكود القديم، حط ده عشان تضمن إن الكود ما يضربش لو الـ body فاضي
-const body = req.body || {};
-const leetcodeUsername = (body.leetcodeUsername || '').trim();
-const codeforcesUsername = (body.codeforcesUsername || '').trim();
+    const body = req.body || {};
+    const leetcodeUsername = (body.leetcodeUsername || '').trim();
+    const codeforcesUsername = (body.codeforcesUsername || '').trim();
 
     if (!leetcodeUsername && !codeforcesUsername) {
       return res.status(400).json({
@@ -360,7 +360,6 @@ const codeforcesUsername = (body.codeforcesUsername || '').trim();
 
     let aiResult;
     try {
-      // استدعاء دالة Groq الجديدة هنا بدلاً من جيميني
       aiResult = await callGroqAI(analysisPayload);
     } catch (aiErr) {
       console.error('[Groq error]', aiErr.message);
@@ -421,11 +420,13 @@ app.use('/api', (_req, res) => {
   res.status(404).json({ error: 'Not found.' });
 });
 
-if (require.main === module) {
+// بديل متوافق مع نظام ES Modules للتشغيل المحلي (Local Development)
+const isMain = process.argv[1] && (process.argv[1] === fileURLToPath(import.meta.url));
+if (isMain) {
   const PORT = process.env.PORT || 3001;
   app.listen(PORT, () => {
     console.log(`Backend listening on http://localhost:${PORT}`);
   });
 }
 
-module.exports = app;
+export default app;
