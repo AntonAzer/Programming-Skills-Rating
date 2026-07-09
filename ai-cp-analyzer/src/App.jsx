@@ -87,7 +87,7 @@ export default function App() {
       });
       setResult(data.analysis);
       setWarnings(data.warnings);
-    } } catch (err) {
+    } catch (err) {
       let msg = 'Something went wrong while running the analysis.';
       
       // تفكيك رسالة الخطأ لتجنب الـ Object Crash
@@ -105,7 +105,7 @@ export default function App() {
       }
       
       setError(msg);
-    } finally { finally {
+    } finally {
       setLoading(false);
     }
   };
