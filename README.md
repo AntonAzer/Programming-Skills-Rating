@@ -23,7 +23,7 @@ ai-cp-analyzer/
         └── App.css
 ```
 
-## ⚠️ Security note
+##  Security note
 
 Rotate any database password or API key that has ever been pasted into a chat,
 committed, or shared in plain text — treat it as compromised even if it "still
