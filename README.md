@@ -4,6 +4,8 @@ A monorepo app that pulls live LeetCode + Codeforces data, sends it to Gemini AI
 for coaching-style analysis, stores the result in Neon Postgres, and displays
 it in a "judge terminal" themed dashboard.
 
+🔗 **Live Demo:** [Check out the application here](https://programming-skills-rating.vercel.app/)
+
 ```
 ai-cp-analyzer/
 ├── vercel.json              # monorepo build/routing config
