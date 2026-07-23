@@ -135,7 +135,7 @@ export default function App() {
 
           <form className="terminal-body" onSubmit={handleSubmit}>
             <div className="prompt-row">
-              <span className="prompt-sigil">$</span>
+              <span className="prompt-sigil"></span>
               <span className="prompt-cmd">analyze</span>
               <span className="prompt-flag">--leetcode</span>
               <input
