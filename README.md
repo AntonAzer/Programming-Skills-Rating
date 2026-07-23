@@ -6,6 +6,10 @@ it in a "judge terminal" themed dashboard.
 
 🔗 **Live Demo:** [Check out the application here](https://programming-skills-rating.vercel.app/)
 
+<img width="1573" height="736" alt="image" src="https://github.com/user-attachments/assets/4a79a52b-3df9-46ae-9ed0-102197634c0c" />
+
+--------------------
+
 ```
 ai-cp-analyzer/
 ├── vercel.json              # monorepo build/routing config
