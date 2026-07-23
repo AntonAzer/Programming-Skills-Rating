@@ -117,7 +117,7 @@ export default function App() {
       <header className="site-header">
         <div className="logo">
           <span className="logo-bracket">{'<'}</span>
-          cp<span className="logo-accent">://</span>analyzer
+          cp<span className="logo-accent"></span>analyzer
           <span className="logo-bracket">{'>'}</span>
         </div>
         <p className="tagline">an AI coach that reads your judge history like a compiler reads your code</p>
