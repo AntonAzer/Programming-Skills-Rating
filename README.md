@@ -97,3 +97,7 @@ npm run dev           # http://localhost:5173 (proxies /api to :3001)
 - `POST /api/analyze` — body: `{ leetcodeUsername?, codeforcesUsername? }` → returns the AI analysis, stores it in Postgres.
 - `GET /api/history?limit=10` — recent past analyses.
 - `GET /api/health` — liveness check.
+- --------------------
+## Neon SQL Editor: 
+- <img width="1917" height="907" alt="image" src="https://github.com/user-attachments/assets/f7682f47-fc45-407b-97d7-0a01f9ad14d3" />
+
